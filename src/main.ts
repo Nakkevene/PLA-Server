@@ -4,15 +4,15 @@ import express from "express";
 import fs from "node:fs";
 
 class PLAServer {
-  constructor(PORT) {
+  constructor(PORT: number) {
     this.Router(PORT);
   }
 
-  Logger = (Data) => {
+  Logger = (Data: string): void => {
     console.log(`[PLA-SERVER ${new Date().toISOString()}] ${Data}`);
   };
 
-  Router = (PORT) => {
+  Router = (PORT: number): void => {
     const server = express();
 
     server.all("/", (req, res) => {
