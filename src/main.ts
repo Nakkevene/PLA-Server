@@ -12,12 +12,12 @@ class PLAServer {
     console.log(`[PLA-SERVER ${new Date().toISOString()}] ${Data}`);
   };
 
-  ReadDeviceSlave = (DeviceSerial: string): number => {
+  ReadDeviceSlave = (DeviceSerial: string): string => {
     const raw: string = fs
       .readFileSync(`/sys/bus/w1/devices/${DeviceSerial}/w1_slave`)
       .toString();
     console.log(raw.split("="));
-    return 0;
+    return "hello";
   };
 
   Router = (PORT: number): void => {
@@ -25,12 +25,12 @@ class PLAServer {
 
     server.all("/", (req, res) => {
       this.Logger(`${req.ip} - ${req.url}`);
-      res.status(200).send("PLA-Server");
+      res.send("PLA-Server");
     });
 
     server.get("/:DeviceSerial", (req, res) => {
       this.Logger(`${req.ip} - ${req.url}`);
-      res.status(200).send(this.ReadDeviceSlave(req.params.DeviceSerial));
+      res.send(this.ReadDeviceSlave(req.params.DeviceSerial));
     });
 
     server.listen(PORT, () => {
