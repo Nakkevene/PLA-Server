@@ -17,6 +17,7 @@ class PLAServer {
       .readFileSync(`/sys/bus/w1/devices/${DeviceSerial}/w1_slave`)
       .toString();
     console.log(raw.split("="));
+    return 0;
   };
 
   Router = (PORT: number): void => {
